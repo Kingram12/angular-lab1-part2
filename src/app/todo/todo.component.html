@@ -1,0 +1,30 @@
+<main class="main">
+  <section class="todos-container">
+    <h1>TODO List</h1>
+    <p>A place to store your todos.</p>
+    <ol>
+      <!--All structural directives will be set up like: *=""-->
+      <!-- Attribute directives will be set up like: []="" -->
+      <li *ngFor="let todo of filterTodos(); index as i">
+        <div class="task-container">
+          <div class="task-start">
+            <button *ngIf="!todo.completed" (click)="completeTask(todo)">
+              Complete
+            </button>
+            <p [ngClass]="{ strikethrough: todo.completed }">{{ todo.task }}</p>
+          </div>
+          <button (click)="removeTask('task', i)">X</button>
+        </div>
+      </li>
+    </ol>
+    <form #newTodoForm="ngForm" (ngSubmit)="addTask(newTodoForm)">
+      <label for="newTodo">New Todo</label>
+      <input type="text" name="newTodo" id="newTodo" ngModel />
+      <button>Submit!</button>
+    </form>
+    <form #todoFilterForm="ngForm" (input)="setTodoSearchTerm(todoFilterForm)">
+      <label for="searchTerm">Search</label>
+      <input type="text" name="searchTerm" id="searchTerm" ngModel />
+    </form>
+  </section>
+</main>
